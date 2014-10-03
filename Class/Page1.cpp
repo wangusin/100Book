@@ -49,13 +49,13 @@ bool Page1::init()
     cache->addSpriteFramesWithFile("index.plist");
     
     
-    for ( int n=0; n<=14; n++) {
+    for ( int n=0; n<=MAXPAGE; n++) {
         cache->addSpriteFramesWithFile(CCString::createWithFormat("Page%d.plist", n)->getCString());
         SimpleAudioEngine::sharedEngine()->preloadEffect(CCString::createWithFormat("Twosp%d.mp3", n)->getCString());
         SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic(CCString::createWithFormat("BGM%d.mp3", n)->getCString());
        
     }
-    switch (CCUserDefault::sharedUserDefault()->getIntegerForKey("languagNum")) {
+    switch (CCUserDefault::sharedUserDefault()->getIntegerForKey("Record_Language")) {
         case 0:
             wordStr=TSWORD;
             menuWordStr="set_bk_tw.png";
@@ -204,7 +204,7 @@ bool Page1::init()
     menuSpr->addChild(TSbtn);
     TSbtn->setTarget(this, menu_selector(Page1::TsbtnFuction));
     TSbtn->addGray(TSbtn);
-    switch (CCUserDefault::sharedUserDefault()->getIntegerForKey("languagNum")) {
+    switch (CCUserDefault::sharedUserDefault()->getIntegerForKey("Record_Language")) {
         case 0:
             TSbtn->removeGray(TSbtn);
             break;
@@ -592,7 +592,7 @@ void Page1::changePage2()
     nowPageWord->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(CCString::createWithFormat(wordStr, pageNum)->getCString()));
     
     nextPage->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(CCString::createWithFormat("p%d.png", nextNum)->getCString()));
-    
+    CCLog("n=%d",nextNum);
     nextPageWord->setDisplayFrame(CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(CCString::createWithFormat(wordStr, nextNum)->getCString()));
     nowPage->cocos2d::CCNode::setPosition(PAGEPOINT);
 
@@ -652,7 +652,7 @@ void Page1::TbtnFuction()
     Tbtn->removeGray(Tbtn);
     Cbtn->addGray(Cbtn);
     TSbtn->addGray(TSbtn);
-    CCUserDefault::sharedUserDefault()->setIntegerForKey("languagNum", 2);
+    CCUserDefault::sharedUserDefault()->setIntegerForKey("Record_Language", 2);
     menuChang();
     
 }
@@ -672,7 +672,7 @@ void Page1::CbtnFuction()
     Tbtn->addGray(Tbtn);
     Cbtn->removeGray(Cbtn);
     TSbtn->addGray(TSbtn);
-    CCUserDefault::sharedUserDefault()->setIntegerForKey("languagNum", 1);
+    CCUserDefault::sharedUserDefault()->setIntegerForKey("Record_Language", 1);
     
     menuChang();
 }
@@ -692,7 +692,7 @@ void Page1::TsbtnFuction()
     Tbtn->addGray(Tbtn);
     Cbtn->addGray(Cbtn);
     TSbtn->removeGray(TSbtn);
-   CCUserDefault::sharedUserDefault()->setIntegerForKey("languagNum", 0);
+   CCUserDefault::sharedUserDefault()->setIntegerForKey("Record_Language", 0);
     
     menuChang();
 }
