@@ -6,8 +6,8 @@
 //
 //
 
-#ifndef EStory002_SetPageNum_h
-#define EStory002_SetPageNum_h
-#define MAXPAGE 14
+#ifndef EStory_SetPageNum_h
+#define EStory_SetPageNum_h
+#define MAXPAGE 19
 
 #endif
