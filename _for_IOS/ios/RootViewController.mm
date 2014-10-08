@@ -1,9 +1,5 @@
 //
-//  EStory001AppController.h
-//  EStory001
-//
-//  Created by imac07 on 2014/9/11.
-//  Copyright __MyCompanyName__ 2014年. All rights reserved.
+//  EBHBookRootViewController.h
 //
 
 #import "RootViewController.h"

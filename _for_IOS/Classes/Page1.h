@@ -48,6 +48,8 @@ public:
     virtual void ccTouchMoved(CCTouch* touch, CCEvent* event);
     virtual void ccTouchEnded(CCTouch* touch, CCEvent* event);
     
+    
+    void openMenuFuction();
     void addPagePlist();
     void changePageFuction();
     void changePage2();
@@ -112,5 +114,8 @@ public:
    
     void playOS();
     CCSprite *blackSpr;
+    
+    void loadResources();
+    void unloadResources();
 };
 #endif /* defined(__ebooktest__Page1__) */
