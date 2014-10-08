@@ -646,7 +646,6 @@ void Page1::TbtnFuction()
     VerticalStr="set_btn_vertical_tw.png";
     HorizontalStr="set_btn_level_tw.png";
     PlayCardOS::createStopMp3Name();
-    menu->setTag(2);
     changePage();
     
     Tbtn->removeGray(Tbtn);
@@ -666,7 +665,6 @@ void Page1::CbtnFuction()
     VerticalStr="set_btn_vertical_cn.png";
     HorizontalStr="set_btn_level_cn.png";
     PlayCardOS::createStopMp3Name();
-    menu->setTag(2);
     changePage();
     
     Tbtn->addGray(Tbtn);
@@ -686,7 +684,6 @@ void Page1::TsbtnFuction()
     VerticalStr="set_btn_vertical.png";
     HorizontalStr="set_btn_level.png";
     PlayCardOS::createStopMp3Name();
-    menu->setTag(2);
     changePage();
     
     Tbtn->addGray(Tbtn);
