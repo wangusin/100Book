@@ -270,13 +270,15 @@ void Page1::playCNOS()
 }
 void Page1::playOS()
 {
-   
+   std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(CCString::createWithFormat("Cnosp%d.mp3", pageNum)->getCString());
+    
+    int lengthNum=strcasecmp(fullPath.c_str(), CCString::createWithFormat("Cnosp%d.mp3", pageNum)->getCString());
+    
     if (EffectOFF->getTag()==1) {
         playOSBool=true;
         if (Cbtn->getTag()==1)
         {
-             std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(CCString::createWithFormat("Cnosp%d.mp3", pageNum)->getCString());
-            if (fullPath.length()<=1)
+            if (lengthNum>0)
             {
                 playTWOS();
             }

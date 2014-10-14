@@ -16,6 +16,7 @@
 #include "TouchSprite.h"
 #include "SetPageNum.h"
 #include "CCFileUtils.h"
+#include "cocoa/CCString.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 class Page1 : public cocos2d::CCLayer
