@@ -199,6 +199,10 @@ bool Page1::init()
     menuSpr->addChild(Cbtn);
     Cbtn->setTarget(this, menu_selector(Page1::CbtnFuction));
     Cbtn->addGray(Cbtn);
+    if (CCUserDefault::sharedUserDefault()->getIntegerForKey("Record_Language")==1) {
+        Cbtn->setTag(1);
+    }
+    
     
     TSbtn=TouchSprite::createBySpriteFrameName("set_btn_tw_tw2.png");
     TSbtn->cocos2d::CCNode::setPosition(450, 105);
