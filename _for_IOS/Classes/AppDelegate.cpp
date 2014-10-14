@@ -61,14 +61,39 @@ bool AppDelegate::applicationDidFinishLaunching()
 void AppDelegate::applicationDidEnterBackground()
 {
     CCDirector::sharedDirector()->stopAnimation();
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    //Android
     SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
     SimpleAudioEngine::sharedEngine()->pauseAllEffects();
+    JniMethodInfo minfo;
+    if(JniHelper::getStaticMethodInfo(minfo,
+                                      "org/cocos2dx/lib/Cocos2dxActivity",
+                                      "pauseVideo",
+                                      "()V"))
+    {
+        minfo.env->CallStaticVoidMethod(minfo.classID, minfo.methodID);
+        minfo.env->DeleteLocalRef(minfo.classID);
+    }
+#endif
 }
 
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground()
 {
     CCDirector::sharedDirector()->startAnimation();
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    //Android
     SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
     SimpleAudioEngine::sharedEngine()->resumeAllEffects();
+    JniMethodInfo minfo;
+    if(JniHelper::getStaticMethodInfo(minfo,
+                                      "org/cocos2dx/lib/Cocos2dxActivity",
+                                      "startVideo",
+                                      "()V"))
+    {
+        minfo.env->CallStaticVoidMethod(minfo.classID, minfo.methodID);
+        minfo.env->DeleteLocalRef(minfo.classID);
+    }
+    
+#endif
 }

@@ -15,8 +15,8 @@
 #include "PlayCardOS.h"
 #include "TouchSprite.h"
 #include "SetPageNum.h"
-#include "CCFileUtils.h"
-#include "cocoa/CCString.h"
+//#include "CCFileUtils.h"
+//#include "cocoa/CCString.h"
 USING_NS_CC;
 USING_NS_CC_EXT;
 class Page1 : public cocos2d::CCLayer
@@ -117,5 +117,8 @@ public:
    
     void playOS();
     CCSprite *blackSpr;
+    
+    void loadResources();
+    void unloadResources();
 };
 #endif /* defined(__ebooktest__Page1__) */

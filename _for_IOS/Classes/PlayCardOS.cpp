@@ -43,7 +43,7 @@ void PlayCardOS::playos(const char *pszFilePath)
     //Android
     JniMethodInfo minfo;
     if(JniHelper::getStaticMethodInfo(minfo,
-                                      "tw/com/b_a/EStory001/EStory001",
+                                      "org/cocos2dx/lib/Cocos2dxActivity",
                                       "playVideo",
                                       "(Ljava/lang/String;)V"))
     {
@@ -69,7 +69,7 @@ void PlayCardOS::stopos()
     //Android
     JniMethodInfo minfo;
     if(JniHelper::getStaticMethodInfo(minfo,
-                                      "tw/com/b_a/EStory001/EStory001",
+                                      "org/cocos2dx/lib/Cocos2dxActivity",
                                       "stopVideo",
                                       "()V"))
     {
