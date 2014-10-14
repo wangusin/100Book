@@ -43,13 +43,14 @@ bool Page1::init()
         return false;
     }
 
-    CCTexture2D::setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA4444);
+    CCTexture2D::setDefaultAlphaPixelFormat(kCCTexture2DPixelFormat_RGBA8888);
     CCTexture2D::PVRImagesHavePremultipliedAlpha(true);
 	cache=CCSpriteFrameCache::sharedSpriteFrameCache();
     cache->addSpriteFramesWithFile("index.plist");
     
     
-    for ( int n=0; n<=2; n++) {
+    
+    for ( int n=0; n<=MAXPAGE; n++) {
         cache->addSpriteFramesWithFile(CCString::createWithFormat("Page%d.plist", n)->getCString());
         SimpleAudioEngine::sharedEngine()->preloadEffect(CCString::createWithFormat("Twosp%d.mp3", n)->getCString());
         SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic(CCString::createWithFormat("BGM%d.mp3", n)->getCString());
@@ -259,11 +260,35 @@ bool Page1::init()
     addChild(blackSpr);
     return true;
 }
+void Page1::playTWOS()
+{
+    PlayCardOS::createByMp3Name(CCString::createWithFormat("Twosp%d.mp3", pageNum)->getCString());
+}
+void Page1::playCNOS()
+{
+    PlayCardOS::createByMp3Name(CCString::createWithFormat("Cnosp%d.mp3", pageNum)->getCString());
+}
 void Page1::playOS()
 {
+   
     if (EffectOFF->getTag()==1) {
-        PlayCardOS::createByMp3Name(CCString::createWithFormat("Twosp%d.mp3", pageNum)->getCString());
         playOSBool=true;
+        if (Cbtn->getTag()==1)
+        {
+             std::string fullPath = CCFileUtils::sharedFileUtils()->fullPathForFilename(CCString::createWithFormat("Cnosp%d.mp3", pageNum)->getCString());
+            if (fullPath.length()<=1)
+            {
+                playTWOS();
+            }
+            else
+            {
+                playCNOS();
+            }
+        }
+        else
+        {
+            playTWOS();
+        }
     }
 }
 
@@ -560,57 +585,8 @@ void Page1::beforePageFuction()
     nowPage->runAction(CCSequence::create(move,call,NULL));
     
 }
-
-#pragma mark-
-#pragma mark read and unload resource
-
-void Page1::loadResources()
-{
-    int cachePageCount = 2;
-    int minOfRange = ((pageNum - cachePageCount) < 0) ? 0 : (pageNum - 2);
-    int maxOfRange = ((pageNum + cachePageCount) > MAXPAGE) ? MAXPAGE : (pageNum + 2);
-    
-    CCLOG("minOfRange = %d, maxOfRange = %d", minOfRange, maxOfRange);
-    
-    for ( int n = minOfRange; n <= maxOfRange; n++)
-    {
-        cache->addSpriteFramesWithFile(CCString::createWithFormat("Page%d.plist", n)->getCString());
-        SimpleAudioEngine::sharedEngine()->preloadEffect(CCString::createWithFormat("Twosp%d.mp3", n)->getCString());
-        SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic(CCString::createWithFormat("BGM%d.mp3", n)->getCString());
-        
-    }
-}
-
-void Page1::unloadResources()
-{
-    int theThreePageBefore = pageNum - 3 < 0 ? -1 : pageNum - 3;
-    int theThreePageAfter = pageNum + 3 > MAXPAGE ? 999 : pageNum + 3;
-    
-    CCLOG("remove cache theThreePageBefore = %d, theThreePageAfter = %d", theThreePageBefore, theThreePageAfter);
-    
-    SimpleAudioEngine* audioSystem = SimpleAudioEngine::sharedEngine();
-    
-    if (theThreePageBefore != -1) {
-        cache->removeSpriteFrameByName(CCString::createWithFormat("Page%d.plist", theThreePageBefore)->getCString());
-        
-        audioSystem->unloadEffect(CCString::createWithFormat("Twosp%d.mp3", theThreePageBefore)->getCString());
-        audioSystem->unloadEffect(CCString::createWithFormat("BGM%d.mp3", theThreePageBefore)->getCString());
-    }
-    
-    if (theThreePageAfter != 999) {
-        cache->removeSpriteFrameByName(CCString::createWithFormat("Page%d.plist", theThreePageAfter)->getCString());
-        
-        audioSystem->unloadEffect(CCString::createWithFormat("Twosp%d.mp3", theThreePageAfter)->getCString());
-        audioSystem->unloadEffect(CCString::createWithFormat("BGM%d.mp3", theThreePageAfter)->getCString());
-    }
-    
-}
-
-#pragma mark-
 void Page1::changePage()
 {
-    scheduleOnce(schedule_selector(Page1::loadResources), 0);
-    scheduleOnce(schedule_selector(Page1::unloadResources), 0);
     
     scheduleOnce(schedule_selector(Page1::changePage2), 0.1);
 }
@@ -701,12 +677,14 @@ void Page1::TbtnFuction()
     VerticalStr="set_btn_vertical_tw.png";
     HorizontalStr="set_btn_level_tw.png";
     PlayCardOS::createStopMp3Name();
-
+//    menu->setTag(1);
     changePage();
     
     Tbtn->removeGray(Tbtn);
     Cbtn->addGray(Cbtn);
     TSbtn->addGray(TSbtn);
+    
+    Cbtn->setTag(2);
     CCUserDefault::sharedUserDefault()->setIntegerForKey("Record_Language", 2);
     menuChang();
     
@@ -721,9 +699,9 @@ void Page1::CbtnFuction()
     VerticalStr="set_btn_vertical_cn.png";
     HorizontalStr="set_btn_level_cn.png";
     PlayCardOS::createStopMp3Name();
-
+//    menu->setTag(2);
     changePage();
-    
+    Cbtn->setTag(1);
     Tbtn->addGray(Tbtn);
     Cbtn->removeGray(Cbtn);
     TSbtn->addGray(TSbtn);
@@ -741,8 +719,9 @@ void Page1::TsbtnFuction()
     VerticalStr="set_btn_vertical.png";
     HorizontalStr="set_btn_level.png";
     PlayCardOS::createStopMp3Name();
-
+//    menu->setTag(2);
     changePage();
+    Cbtn->setTag(2);
     
     Tbtn->addGray(Tbtn);
     Cbtn->addGray(Cbtn);
@@ -777,6 +756,7 @@ void Page1::HorizontalFuction()
     VerticalSpr->setTag(2);
     CCUserDefault::sharedUserDefault()->setBoolForKey("VerticalB", false);
 }
+
 void Page1::menuCloseCallback(CCObject* pSender)
 {
     CCDirector::sharedDirector()->end();
