@@ -29,16 +29,14 @@ import org.cocos2dx.lib.Cocos2dxHelper.Cocos2dxHelperListener;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
+import android.content.res.AssetFileDescriptor;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.ViewGroup;
 import android.util.Log;
 import android.widget.FrameLayout;
-import android.content.res.AssetFileDescriptor;
-import android.media.MediaPlayer;
 
 public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelperListener {
 	// ===========================================================
@@ -50,8 +48,6 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
 	// ===========================================================
 	// Fields
 	// ===========================================================
-	
-	private static native void notifyFun();
 	
 	private Cocos2dxGLSurfaceView mGLSurfaceView;
 	private Cocos2dxHandler mHandler;
@@ -237,16 +233,4 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
 	// ===========================================================
 	// Inner and Anonymous Classes
 	// ===========================================================
-   
-   public static void Callnotify() {
-	     Cocos2dxActivity.notifyFun();
-	}
-   
-   public static void openUrl(String url)
-   {
-       Uri uri = Uri.parse(url);
-       Intent it = new Intent(Intent.ACTION_VIEW,uri);
-       sContext.startActivity(it);
-       it = null;
-   } 
 }
