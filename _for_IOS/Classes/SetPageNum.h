@@ -8,6 +8,7 @@
 
 #ifndef EStory_SetPageNum_h
 #define EStory_SetPageNum_h
+//最終頁的號碼
 #define MAXPAGE 19
 
 #endif
