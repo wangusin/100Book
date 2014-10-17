@@ -56,7 +56,7 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
 	
 	private static MediaPlayer medPlay;
 	
-	public static void playVideo(final String msg)
+	public static void playLongSound(final String msg)
     {
     	AssetFileDescriptor afd;
 		try {
@@ -76,7 +76,7 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
     	
     }
     
-    public static void stopVideo()
+    public static void stopLongSound()
     {
         
         if(medPlay!=null)
@@ -87,7 +87,7 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
         
     }
     
-    public static void pauseVideo()
+    public static void pauseLongSound()
     {
         
         if(medPlay!=null)
@@ -99,7 +99,7 @@ public abstract class Cocos2dxActivity extends Activity implements Cocos2dxHelpe
     }
     
     
-    public static void startVideo()
+    public static void startLongSound()
     {
         
         if(medPlay!=null)

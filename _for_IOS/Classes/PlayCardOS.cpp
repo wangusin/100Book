@@ -44,7 +44,7 @@ void PlayCardOS::playos(const char *pszFilePath)
     JniMethodInfo minfo;
     if(JniHelper::getStaticMethodInfo(minfo,
                                       "org/cocos2dx/lib/Cocos2dxActivity",
-                                      "playVideo",
+                                      "playLongSound",
                                       "(Ljava/lang/String;)V"))
     {
         jstring StringArg1 = minfo.env->NewStringUTF(pszFilePath);
@@ -70,7 +70,7 @@ void PlayCardOS::stopos()
     JniMethodInfo minfo;
     if(JniHelper::getStaticMethodInfo(minfo,
                                       "org/cocos2dx/lib/Cocos2dxActivity",
-                                      "stopVideo",
+                                      "stopLongSound",
                                       "()V"))
     {
         minfo.env->CallStaticVoidMethod(minfo.classID, minfo.methodID);

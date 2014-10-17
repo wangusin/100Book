@@ -70,7 +70,7 @@ void AppDelegate::applicationDidEnterBackground()
     JniMethodInfo minfo;
     if(JniHelper::getStaticMethodInfo(minfo,
                                       "org/cocos2dx/lib/Cocos2dxActivity",
-                                      "pauseVideo",
+                                      "pauseLongSound",
                                       "()V"))
     {
         minfo.env->CallStaticVoidMethod(minfo.classID, minfo.methodID);
@@ -90,7 +90,7 @@ void AppDelegate::applicationWillEnterForeground()
     JniMethodInfo minfo;
     if(JniHelper::getStaticMethodInfo(minfo,
                                       "org/cocos2dx/lib/Cocos2dxActivity",
-                                      "startVideo",
+                                      "startLongSound",
                                       "()V"))
     {
         minfo.env->CallStaticVoidMethod(minfo.classID, minfo.methodID);
